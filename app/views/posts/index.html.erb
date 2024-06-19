@@ -1,0 +1,18 @@
+
+<% if user_signed_in? %> 
+ <div> Welcome <%= current_user.email %> </div> 
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %> 
+<% else %>
+  <%= button_to "Sign in", new_user_session_path %> 
+<% end %>
+
+<h1>All Blog Posts</h1>
+
+<% @posts.each do |post| %>
+  <div>
+    <h2><%= link_to post.title, post %></h2>
+    <p><%= truncate(strip_tags(post.body), length: 200) %></p>
+    <p>Author: <%= post.user.email %></p> <!-- Assuming you have a User model with email -->
+  </div>
+<% end %>
+  

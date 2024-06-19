@@ -1,0 +1,23 @@
+<%= form_with(model: [ @post, @post.likes.build ], local: true) do |form| %>
+  <div class="field">
+    <%= form.hidden_field :user_id, value: current_user.id %>
+  </div>
+  <div class="actions">
+    <%= form.submit 'Like', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<h1><%= @post.title %></h1>
+<p><%= @post.body %></p>
+
+<!-- Comments section -->
+<h3>Comments</h3>
+<%= render @post.comments %>
+
+<%= form_with(model: [ @post, @post.comments.build ], local: true) do |form| %>
+  <div class="field">
+    <%= form.label :body, 'Add a comment:' %><br>
+    <%= form.text_area :body %>
+  </div>
+  <%= form.submit 'Add Comment', class: 'btn btn-primary' %>
+<% end %>
