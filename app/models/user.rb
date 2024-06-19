@@ -7,5 +7,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :likes
   has_many :comments
-end
+  has_many :posts
 
+  ROLES = %i[author reader].freeze
+
+  def author?
+    role == 'author'
+  end
+
+  def reader?
+    role == 'reader'
+  end
+end

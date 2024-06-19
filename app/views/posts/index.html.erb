@@ -7,12 +7,26 @@
 <% end %>
 
 <h1>All Blog Posts</h1>
+<%= search_form_for @q do |f| %>
+  <div class="field">
+    <%= f.label :title, "Search by title" %>
+    <%#= f.search_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :s, "Sort by" %>
+    <%= f.select :s, options_for_select([['Title Ascending', 'title asc'], ['Title Descending', 'title desc']]) %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Search" %>
+  </div>
+<% end %>
 
 <% @posts.each do |post| %>
   <div>
     <h2><%= link_to post.title, post %></h2>
     <p><%= truncate(strip_tags(post.body), length: 200) %></p>
-    <p>Author: <%= post.user.email %></p> <!-- Assuming you have a User model with email -->
+    <p><%= post.user.email %></p>
   </div>
 <% end %>
   
+<%= paginate @posts %>
